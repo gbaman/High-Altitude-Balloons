@@ -18,12 +18,18 @@ except ImportError:
 from bmp280 import BMP280
 
 # Set up for the BMP280 sensor
-bus = SMBus(1)
-bmp280 = BMP280(i2c_dev=bus, i2c_addr=0x77)
+try:
+    bus = SMBus(1)
+    bmp280 = BMP280(i2c_dev=bus, i2c_addr=0x77)
+except FileNotFoundError:
+    bmp280 = None
 
 def extra_telemetry():
     # Add in the extra telemetry data from the bmp280 sensor (and round them to 2dp each)
-    return "{},{}".format(round(bmp280.get_temperature(), 2), round(bmp280.get_pressure(), 2))
+    if bmp280:
+        return "{},{}".format(round(bmp280.get_temperature(), 2), round(bmp280.get_pressure(), 2))
+    else:
+        return "100,200"
 
 
 payload = Tracker()
