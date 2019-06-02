@@ -1,0 +1,14 @@
+# /lib/systemd/system/tracker.service
+
+[Unit]
+Description=Tracker service
+After=multi-user.target
+Conflicts=getty@tty1.service
+
+[Service]
+Type=simple
+ExecStart=/home/pi/startup.sh
+StandardInput=tty-force
+
+[Install]
+WantedBy=multi-user.target
