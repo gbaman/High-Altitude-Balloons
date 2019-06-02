@@ -1,3 +1,4 @@
 bmp280
+w1thermsensor
 # Also needs the pytrack module from apt
 # sudo apt install python3-pytrack

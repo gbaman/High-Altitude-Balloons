@@ -9,6 +9,7 @@ os.system("sudo pigpiod")
 
 from pytrack.tracker import *
 from time import sleep
+from w1thermsensor import W1ThermSensor
 
 # Get the right smbus library (for i2c)
 try:
@@ -23,13 +24,27 @@ try:
     bmp280 = BMP280(i2c_dev=bus, i2c_addr=0x77)
 except FileNotFoundError:
     bmp280 = None
+    
+try:
+    temp_sensor = W1ThermSensor()
+    t = temp_sensor.get_temperature()
+except:
+    temp_sensor = None
 
 def extra_telemetry():
     # Add in the extra telemetry data from the bmp280 sensor (and round them to 2dp each)
-    if bmp280:
-        return "{},{}".format(round(bmp280.get_temperature(), 2), round(bmp280.get_pressure(), 2))
+    if temp_sensor:
+        w_temp = round(temp_sensor.get_temperature(), 2)
     else:
-        return "100,200"
+        w_temp = 300
+    if bmp280:
+        bmp_temp = round(bmp280.get_temperature(), 2)
+        bmp_pressure = round(bmp280.get_pressure(), 2)
+    else:
+        bmp_temp = 100
+        bmp_pressure = 200
+
+    return "{},{},{}".format(bmp_temp, bmp_pressure, w_temp)
 
 
 payload = Tracker()
