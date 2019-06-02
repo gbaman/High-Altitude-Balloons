@@ -44,7 +44,9 @@ def extra_telemetry():
         bmp_temp = 100
         bmp_pressure = 200
 
-    return "{},{},{}".format(bmp_temp, bmp_pressure, w_temp)
+    batt_voltage = 0
+
+    return "{},{},{},{}".format(bmp_temp, bmp_pressure, w_temp, batt_voltage)
 
 
 payload = Tracker()
