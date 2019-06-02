@@ -22,13 +22,15 @@ from bmp280 import BMP280
 try:
     bus = SMBus(1)
     bmp280 = BMP280(i2c_dev=bus, i2c_addr=0x77)
-except FileNotFoundError:
+except:
+    print("------------- NO BMP sensor!! -------------")
     bmp280 = None
-    
+ 
 try:
     temp_sensor = W1ThermSensor()
     t = temp_sensor.get_temperature()
 except:
+    print("------------- NO temp sensor!! -------------")
     temp_sensor = None
 
 def extra_telemetry():
