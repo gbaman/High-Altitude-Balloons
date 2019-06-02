@@ -7,7 +7,7 @@ Conflicts=getty@tty1.service
 
 [Service]
 Type=simple
-ExecStart=/home/pi/startup.sh
+ExecStart=/home/pi/High-Altitude-Balloons/ballymacrickett/startup.sh
 StandardInput=tty-force
 
 [Install]
