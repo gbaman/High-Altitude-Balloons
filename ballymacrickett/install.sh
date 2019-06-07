@@ -9,3 +9,5 @@ sudo cp tracker.service /lib/systemd/system/tracker.service -f
 
 sudo systemctl enable tracker.service
 sudo service tracker start
+
+sudo chmod +x startup.sh
